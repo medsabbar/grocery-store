@@ -1,8 +1,15 @@
 import { addToCart } from "@/lib/cart";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import React from "react";
-import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import React, { useEffect } from "react";
+import {
+  AiFillMinusCircle,
+  AiFillPlusCircle,
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+} from "react-icons/ai";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 function CategoryItems({ category }: { category: string }) {
   const { data: items, isFetching } = useQuery(
@@ -100,11 +107,55 @@ const Item = ({ item }: { item: any }) => {
 
 const Loading = () => {
   return (
-    <div className="md:w-96 w-full grid gap-2 bg-emerald-50 p-2 shadow rounded overflow-hidden">
+    <div className="w-full grid gap-2 bg-emerald-50 p-2 shadow rounded overflow-hidden">
       <div className="animate-pulse bg-emerald-100 h-4"></div>
       <div className="animate-pulse bg-emerald-100 h-24"></div>
       <div className="animate-pulse bg-emerald-100 h-24"></div>
       <div className="animate-pulse bg-emerald-100 h-4"></div>
+    </div>
+  );
+};
+
+const Carousel = ({ images }: { images: string[] }) => {
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // move it smoothly
+      setCurrentSlide((prev) => {
+        if (prev === images.length - 1) return 0;
+        return prev + 1;
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [currentSlide]);
+
+  // return all images but only show the current slide
+  return (
+    <div className="relative">
+      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+        <AiOutlineArrowLeft
+          onClick={() => {
+            setCurrentSlide((prev) => {
+              if (prev === 0) return images.length - 1;
+              return prev - 1;
+            });
+          }}
+          className="cursor-pointer text-white text-4xl"
+        />
+      </div>
+      <img src={images[currentSlide]} className="w-full rounded" />
+      <div className="absolute top-0 right-0 w-full h-full flex items-center justify-center">
+        <AiOutlineArrowRight
+          onClick={() => {
+            setCurrentSlide((prev) => {
+              if (prev === images.length - 1) return 0;
+              return prev + 1;
+            });
+          }}
+          className="cursor-pointer text-white text-4xl"
+        />
+      </div>
     </div>
   );
 };

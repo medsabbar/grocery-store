@@ -17,6 +17,13 @@ export default async function handler(
       : 0;
 
     const category = params.category ? (params.category as string) : null;
+    const { _id } = params;
+
+    if (_id) {
+      if (mongoose.connection.readyState === 0) await connectToDB();
+      const item = await Item.findOne({ _id });
+      return res.status(200).json(item);
+    }
 
     if (queryPageSize > 50) queryPageSize = 50;
 
