@@ -2,6 +2,7 @@ import Input from "@/components/forms/Input";
 import Tabs from "@/components/forms/Tabs";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
@@ -64,6 +65,17 @@ function Signup() {
           </button>
         </form>
       </FormProvider>
+      <div className="flex">
+        <p className="mx-auto mt-4">
+          Already have an account?{" "}
+          <Link
+            className="text-emerald-500 hover:text-emerald-700"
+            href="/login"
+          >
+            Log in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

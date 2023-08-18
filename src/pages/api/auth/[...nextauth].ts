@@ -1,6 +1,6 @@
 import connectToDB from "@/lib/connectToDB";
 import mongoose from "mongoose";
-import User from "@/lib/models/mongoose/User";
+import User from "@/lib/models/User";
 // @ts-ignore
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -45,7 +45,6 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     // @ts-ignore
     session: ({ session, token }) => {
-      console.log("Session Callback", { session, token });
       return {
         ...session,
         user: {
@@ -57,7 +56,6 @@ const authOptions: NextAuthOptions = {
     },
     // @ts-ignore
     jwt: ({ token, user }) => {
-      console.log("JWT Callback", { token, user });
       if (user) {
         const u = user as unknown as any;
         return {

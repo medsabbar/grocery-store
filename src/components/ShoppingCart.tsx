@@ -15,7 +15,7 @@ function ShoppingCart() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const cart = localStorage.getItem("cart");
+      const cart = localStorage.getItem("cartItems");
       if (cart) {
         setItems(JSON.parse(cart));
       }

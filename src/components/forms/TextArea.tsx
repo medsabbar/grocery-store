@@ -1,15 +1,14 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-export default function Select({
+export default function TextArea({
   name,
   label,
-  options,
+  rows = 6,
   ...rest
 }: {
   name: string;
   label: string;
-  options: { value: string; label: string }[];
 }) {
   const {
     register,
@@ -23,21 +22,15 @@ export default function Select({
       >
         {label}
       </label>
-      <select
-        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+      <textarea
+        className={`shadow resize-none appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
           errors[name] ? "border-red-500" : ""
         }`}
         id={name}
         {...register(name)}
         {...rest}
-      >
-        <option value="">Select {label}</option>
-        {options.map(({ value, label }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
+        rows={rows}
+      />
       {errors[name] && (
         <p className="text-red-500 text-xs italic">{errors[name].message}</p>
       )}

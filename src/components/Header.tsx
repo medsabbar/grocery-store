@@ -7,17 +7,35 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ShoppingCart from "./ShoppingCart";
 import Link from "next/link";
 import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { FaClipboardList } from "react-icons/fa";
+import { BiPackage } from "react-icons/bi";
+
+const LINKS = [
+  {
+    name: "Items",
+    href: "/items",
+    restricted: true,
+    roles: ["admin", "seller"],
+    icon: <FaClipboardList className="inline-block w-4 h-4" />,
+  },
+  {
+    name: "Orders",
+    href: "/orders",
+    restricted: true,
+    roles: ["admin", "seller"],
+    icon: <BiPackage className="inline-block w-4 h-4" />,
+  },
+];
 
 function Header() {
   const { data, status } = useSession();
   return (
-    <div className="flex justify-between w-full max-w-4xl mx-auto py-4">
+    <div className="flex px-2 justify-between w-full max-w-4xl mx-auto py-4">
       <Link className="flex items-center gap-2" href="/">
         <Image
           src="/logo.png"
@@ -33,7 +51,7 @@ function Header() {
         <ShoppingCart />
         {status !== "loading" && !data?.user && (
           <Link
-            className="bg-emerald-50 border rounded-full gap-1 px-2 flex items-center justify-center shadow border-emerald-500 hover:bg-emerald-100"
+            className="flex items-center justify-center gap-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-4 py-2 shadow-md"
             href="/login"
           >
             <AiOutlineLogin className="inline-block w-4 h-4" />
@@ -44,7 +62,7 @@ function Header() {
         {data?.user && (
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar>
+              <Avatar className="shadow">
                 <AvatarImage
                   src={`data:image/svg+xml;utf8,${data?.user?.image}`}
                 />
@@ -58,6 +76,20 @@ function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white dark:bg-gray-800 shadow-lg rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none">
               <DropdownMenuLabel>{data.user.name}</DropdownMenuLabel>
+              {LINKS.filter(
+                ({ restricted, roles }) =>
+                  !restricted || roles.includes(data.user.role)
+              ).map(({ name, href, icon }) => (
+                <DropdownMenuItem key={href}>
+                  <Link
+                    href={href}
+                    className="flex items-center gap-1 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+                  >
+                    {icon}
+                    {name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
               <DropdownMenuItem>
                 <button
                   className="flex items-center gap-1 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"

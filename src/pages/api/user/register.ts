@@ -1,7 +1,7 @@
 import connectToDB from "@/lib/connectToDB";
 import type { NextApiRequest, NextApiResponse } from "next";
 import mongoose from "mongoose";
-import User from "@/lib/models/mongoose/User";
+import User from "@/lib/models/User";
 import { generateFromString } from "generate-avatar";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;

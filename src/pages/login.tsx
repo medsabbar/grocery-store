@@ -6,6 +6,8 @@ import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Link from "next/link";
+import SubmitBTN from "@/components/SubmitBTN";
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -71,36 +73,20 @@ function Login() {
               {error}
             </p>
           )}
-          <button
-            className="block mx-auto bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            {submitting && (
-              <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                ></path>
-              </svg>
-            )}
-            Submit
-          </button>
+          <SubmitBTN isSubmitting={submitting} text="Log In" />
         </form>
       </FormProvider>
+      <div className="flex">
+        <p className="mx-auto mt-4">
+          Don&apos;t have an account?{" "}
+          <Link
+            className="text-emerald-500 hover:text-emerald-700"
+            href="/signup"
+          >
+            Sign up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
