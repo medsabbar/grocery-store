@@ -8,8 +8,6 @@ import {
   AiOutlineArrowLeft,
   AiOutlineArrowRight,
 } from "react-icons/ai";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 
 function CategoryItems({ category }: { category: string }) {
   const { data: items, isFetching } = useQuery(
@@ -43,7 +41,7 @@ function CategoryItems({ category }: { category: string }) {
 
 export default CategoryItems;
 
-const Item = ({ item }: { item: any }) => {
+export const Item = ({ item }: { item: any }) => {
   const [quantity, setQuantity] = React.useState(1);
   return (
     <div className="w-full grid gap-2 bg-emerald-50 p-2 shadow rounded overflow-hidden hover:bg-emerald-100">
@@ -90,7 +88,6 @@ const Item = ({ item }: { item: any }) => {
         <button
           className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-4 py-2 shadow-md"
           onClick={() => {
-            // @ts-ignore
             addToCart({
               _id: item._id,
               quantity,

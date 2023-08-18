@@ -10,7 +10,13 @@ export default function Home() {
   const { push } = useRouter();
   return (
     <div className="flex gap-8 flex-col items-center justify-center min-h-screen py-2">
-      <div className="relative mx-auto flex gap-2 flex-wrap">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          push(`/search/${search}`);
+        }}
+        className="relative mx-auto flex gap-2 flex-wrap"
+      >
         <input
           type="text"
           className="md:w-96 w-full border rounded-full border-gray-300 p-2 px-10 shadow-md"
@@ -28,7 +34,7 @@ export default function Home() {
         >
           Search
         </button>
-      </div>
+      </form>
       <Front />
       {Categories.map((category) => (
         <CategoryItems key={category} category={category} />
