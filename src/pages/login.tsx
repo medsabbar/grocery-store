@@ -49,7 +49,7 @@ function Login() {
   });
 
   return (
-    <div className="max-w-2xl w-full mx-auto bg-white p-4 rounded-md my-8 shadow-md">
+    <div className="max-w-2xl w-11/12 mx-auto bg-white p-4 rounded-md my-8 shadow-md">
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit((data) => {

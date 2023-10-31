@@ -1,10 +1,10 @@
 import React from "react";
 
-function Spinner({ size = 5 }: { size?: 5 | 10 }) {
+function Spinner({ size = 5 }: { size?: 5 | 10 | 20 }) {
   return (
     <div className="flex items-center justify-center">
       <svg
-        className={`animate-spin h-${size} w-${size} text-gray-500`}
+        className={`animate-spin h-${size} w-${size} text-emerald-500`}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

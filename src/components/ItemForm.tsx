@@ -20,6 +20,7 @@ const schema = yup.object().shape({
   price: yup.number().required(),
   category: yup.string().required(),
   images: yup.array().required().min(1),
+  stock: yup.number().required().min(0),
 });
 
 function ItemForm({ mode, item }: { mode: "create" | "edit"; item?: any }) {
@@ -37,6 +38,7 @@ function ItemForm({ mode, item }: { mode: "create" | "edit"; item?: any }) {
     resolver: yupResolver(schema),
   });
   const handleSubmit = async (data: any) => {
+    setSubmitting(true);
     const _id = new mongoose.Types.ObjectId().toString();
 
     const base64ToImageFile = async (dataURI: string, fileName: string) => {
@@ -113,6 +115,8 @@ function ItemForm({ mode, item }: { mode: "create" | "edit"; item?: any }) {
         category: "",
       });
     }
+
+    setSubmitting(false);
   };
 
   return (
@@ -125,6 +129,7 @@ function ItemForm({ mode, item }: { mode: "create" | "edit"; item?: any }) {
           <Input name="name" label="Name" />
           <TextArea name="description" label="Description" />
           <Input name="price" label="Price" />
+          <Input name="stock" label="Stock" />
           <Select
             name="category"
             label="Category"

@@ -37,6 +37,11 @@ const ItemSchema = new Schema({
     ref: "User",
     required: [true, "Please provide an owner"],
   },
+  stock: {
+    type: Number,
+    required: [true, "Please provide a stock"],
+    min: 0,
+  },
   __v: Number,
 });
 

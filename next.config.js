@@ -7,6 +7,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ["images.unsplash.com", "firebasestorage.googleapis.com"],
+  },
 };
 
 module.exports = nextConfig;

@@ -17,7 +17,15 @@ export default async function handler(
       : 0;
 
     const category = params.category ? (params.category as string) : null;
-    const { _id } = params;
+    const { _id, ownerId } = params;
+
+    if (ownerId) {
+      if (mongoose.connection.readyState === 0) await connectToDB();
+      const items = await Item.find({
+        ownerId: new mongoose.Types.ObjectId(ownerId),
+      });
+      return res.status(200).json(items);
+    }
 
     if (_id) {
       if (mongoose.connection.readyState === 0) await connectToDB();

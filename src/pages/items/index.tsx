@@ -10,3 +10,11 @@ function index() {
 }
 
 export default index;
+
+export const getServerSideProps = async () => {
+  return {
+    props: {
+      title: "Items",
+    },
+  };
+};
